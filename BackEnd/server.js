@@ -25,7 +25,7 @@ const movieSchema = new mongoose.Schema({
   poster:String
 });
 
-const movieModel = new mongoose.model('myMovies',movieSchema);
+const movieModel = new mongoose.model('sdfsdfsdf45',movieSchema);
 
 app.get('/api/movies', async (req, res) => {
     const movies = await movieModel.find({});
@@ -35,6 +35,11 @@ app.get('/api/movies', async (req, res) => {
 app.get('/api/movie/:id', async (req ,res)=>{
   const movie = await movieModel.findById(req.params.id);
   res.json(movie);
+})
+
+app.put('/api/movie/:id', async (req, res)=>{
+  const movie = await movieModel.findByIdAndUpdate(req.params.id, req.body, {new:true});
+  res.send(movie);
 })
 
 app.post('/api/movies',async (req, res)=>{
