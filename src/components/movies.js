@@ -1,10 +1,23 @@
 import MovieItem from "./movieitem";
 
-const Movies = (props)=>{
-    return props.myMovies.map(
-        (movie)=>{
-            return <MovieItem mymovie={movie} key={movie._id} />
-        }
+function Movies({ myMovies, ReloadData }) {
+    // Ensure `myMovies` is always an array
+    const movies = Array.isArray(myMovies) ? myMovies : [];
+
+    return (
+        <>
+            {movies.length === 0 ? (
+                <div>No movies available.</div>
+            ) : (
+                movies.map((movie) => (
+                    <MovieItem
+                        myMovie={movie}
+                        key={movie._id}
+                        Reload={ReloadData}
+                    />
+                ))
+            )}
+        </>
     );
 }
 

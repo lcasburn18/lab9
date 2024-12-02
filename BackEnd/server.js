@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://admin:admin@martinscluster.w5rtkz0.mongodb.net/DB14');
+mongoose.connect('mongodb+srv://admin:admin@cluster0.q66of.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
 
 const movieSchema = new mongoose.Schema({
   title:String,
@@ -51,6 +51,13 @@ app.post('/api/movies',async (req, res)=>{
 
     res.status(201).json({"message":"Movie Added!",Movie:newMovie});
 })
+
+app.delete('/api/movie/:id', async (req, res) => {
+  
+  console.log('Deleting movie with ID:', req.params.id);
+  const movie = await movieModel.findByIdAndDelete(req.params.id);
+  res.status(200).send({ message: "Movie deleted successfully", movie });
+});
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
